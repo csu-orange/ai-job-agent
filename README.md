@@ -29,7 +29,7 @@ Agent 提取岗位关键词和简历证据
 
 ```bash
 cd C:\Users\zhang\ai-job-agent
-node server.js
+npm run local
 ```
 
 浏览器打开：
@@ -56,7 +56,7 @@ nvidia  -> NVIDIA NIM OpenAI-compatible Chat Completions API
 $env:AI_PROVIDER="openai"
 $env:OPENAI_API_KEY="你的 OpenAI API Key"
 $env:OPENAI_MODEL="gpt-4.1-mini"
-node server.js
+npm start
 ```
 
 ### NVIDIA NIM
@@ -68,7 +68,7 @@ $env:NVIDIA_BASE_URL="https://integrate.api.nvidia.com/v1"
 $env:NVIDIA_MODEL="meta/llama-3.1-70b-instruct"
 $env:NVIDIA_TIMEOUT_MS="25000"
 $env:NVIDIA_MAX_TOKENS="2048"
-node server.js
+npm run local
 ```
 
 NVIDIA 的模型 ID 建议以 NVIDIA API Catalog 页面里复制到的值为准。
@@ -111,10 +111,11 @@ ai-job-agent
 │  └─ analyze.js          # Vercel Serverless API
 ├─ lib
 │  └─ agent.js            # Provider 选择、OpenAI/NVIDIA 调用、本地规则引擎
-├─ server.js              # Node 原生本地 HTTP 服务
 ├─ package.json
 ├─ .env.example
 ├─ vercel.json
+├─ scripts
+│  └─ local-server.js     # Node 原生本地 HTTP 服务
 └─ public
    ├─ index.html          # 输入和报告界面
    ├─ styles.css          # 响应式 UI
