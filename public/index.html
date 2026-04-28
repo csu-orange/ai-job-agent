@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI 简历求职 Agent</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Resume & Job Search Agent</p>
+        <h1>AI 简历求职 Agent</h1>
+      </div>
+      <div class="engine" id="engineStatus">本地分析引擎</div>
+    </header>
+
+    <main class="workspace">
+      <section class="input-panel" aria-label="输入区">
+        <form id="agentForm">
+          <div class="row two">
+            <label>
+              目标岗位
+              <input id="targetRole" name="targetRole" placeholder="例如：前端开发工程师 / 产品经理" />
+            </label>
+            <label>
+              当前职级
+              <select id="seniority" name="seniority">
+                <option value="应届生">应届生</option>
+                <option value="初级">初级</option>
+                <option value="中级" selected>中级</option>
+                <option value="高级">高级</option>
+                <option value="专家/负责人">专家/负责人</option>
+              </select>
+            </label>
+          </div>
+
+          <label>
+            简历内容
+            <textarea id="resume" name="resume" placeholder="粘贴你的简历、项目经历或个人介绍"></textarea>
+          </label>
+
+          <label>
+            岗位 JD
+            <textarea id="jobDescription" name="jobDescription" placeholder="粘贴目标岗位的职责和要求"></textarea>
+          </label>
+
+          <div class="actions">
+            <button class="primary" type="submit" id="runButton">运行分析</button>
+            <button type="button" id="sampleButton">填入示例</button>
+            <button type="button" id="clearButton">清空</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="output-panel" aria-label="分析结果">
+        <div class="steps" id="steps">
+          <span class="active">1 读取简历</span>
+          <span>2 匹配 JD</span>
+          <span>3 改写策略</span>
+          <span>4 面试准备</span>
+        </div>
+
+        <div class="empty-state" id="emptyState">
+          <h2>输入简历和 JD 后开始分析</h2>
+          <p>Agent 会输出匹配度、关键词差距、简历改写、定制摘要、面试问题和投递行动计划。</p>
+        </div>
+
+        <div class="result" id="result" hidden>
+          <div class="score-row">
+            <div class="score-ring">
+              <strong id="scoreValue">--</strong>
+              <span>匹配度</span>
+            </div>
+            <div>
+              <h2 id="verdict">等待分析</h2>
+              <p id="strategy"></p>
+            </div>
+          </div>
+
+          <nav class="tabs" aria-label="报告切换">
+            <button class="tab active" data-tab="overview" type="button">总览</button>
+            <button class="tab" data-tab="rewrite" type="button">简历优化</button>
+            <button class="tab" data-tab="tailored" type="button">定制简历</button>
+            <button class="tab" data-tab="interview" type="button">面试准备</button>
+            <button class="tab" data-tab="plan" type="button">投递计划</button>
+          </nav>
+
+          <div class="tab-body" id="tabBody"></div>
+        </div>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
