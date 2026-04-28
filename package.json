@@ -2,9 +2,8 @@
   "name": "ai-job-agent",
   "version": "1.0.0",
   "description": "AI resume and job search agent MVP",
-  "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "local": "node scripts/local-server.js"
   },
   "keywords": [
     "resume",
