@@ -232,8 +232,14 @@ function showNotice(message) {
 }
 
 function buildEngineLabel(engine) {
+  if (engine === "nvidia") {
+    return "NVIDIA NIM Agent";
+  }
   if (engine === "openai") {
     return "OpenAI Agent";
+  }
+  if (engine === "nvidia-fallback") {
+    return "NVIDIA 兜底引擎";
   }
   if (engine === "local-fallback") {
     return "本地兜底引擎";
