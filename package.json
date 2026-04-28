@@ -1,0 +1,16 @@
+{
+  "name": "ai-job-agent",
+  "version": "1.0.0",
+  "description": "AI resume and job search agent MVP",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "resume",
+    "job-search",
+    "agent",
+    "openai"
+  ],
+  "license": "MIT"
+}
