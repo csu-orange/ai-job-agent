@@ -38,45 +38,66 @@ node server.js
 http://localhost:3000
 ```
 
-## 可选 OpenAI 接入
+## AI Provider
 
-不配置 API Key 时，项目使用内置本地规则引擎，方便演示完整流程。
+项目支持三种后端模式：
 
-如果要接入真实模型：
+```text
+local   -> 项目内置规则引擎，不调用第三方模型
+openai  -> OpenAI Responses API
+nvidia  -> NVIDIA NIM OpenAI-compatible Chat Completions API
+```
+
+不配置任何 API Key 时，项目自动使用 `local`，方便演示完整流程。
+
+### OpenAI
 
 ```powershell
-$env:OPENAI_API_KEY="你的 API Key"
+$env:AI_PROVIDER="openai"
+$env:OPENAI_API_KEY="你的 OpenAI API Key"
 $env:OPENAI_MODEL="gpt-4.1-mini"
 node server.js
 ```
 
-后端使用 OpenAI Responses API 的 `POST /v1/responses` 形态，并要求模型返回固定 JSON 结构。模型名通过 `OPENAI_MODEL` 配置，便于后续替换。
+### NVIDIA NIM
 
-## 部署
+```powershell
+$env:AI_PROVIDER="nvidia"
+$env:NVIDIA_API_KEY="你的 NVIDIA API Key"
+$env:NVIDIA_BASE_URL="https://integrate.api.nvidia.com/v1"
+$env:NVIDIA_MODEL="meta/llama-3.1-70b-instruct"
+node server.js
+```
+
+NVIDIA 的模型 ID 建议以 NVIDIA API Catalog 页面里复制到的值为准。
+
+## Vercel 部署
 
 项目已准备好 Vercel 部署结构：
 
 ```text
 public/              # 静态前端
 api/analyze.js       # Vercel Serverless Function
-lib/agent.js         # 前后端部署共用的 Agent 分析逻辑
+lib/agent.js         # Agent 分析逻辑和 provider 适配
 vercel.json          # Vercel 函数配置
 ```
 
-如果已经登录 Vercel CLI，可以直接执行：
+部署：
 
 ```bash
 npx vercel --prod
 ```
 
-如果要让线上实例使用真实模型，在 Vercel 项目环境变量里配置：
+线上使用 NVIDIA 时，在 Vercel Project Settings -> Environment Variables 配置：
 
 ```text
-OPENAI_API_KEY=你的 API Key
-OPENAI_MODEL=gpt-4.1-mini
+AI_PROVIDER=nvidia
+NVIDIA_API_KEY=你的 NVIDIA API Key
+NVIDIA_BASE_URL=https://integrate.api.nvidia.com/v1
+NVIDIA_MODEL=你选择的 NVIDIA 模型 ID
 ```
 
-不配置 `OPENAI_API_KEY` 时，线上实例仍会使用本地规则引擎完成 Demo 分析。
+不要把真实 API Key 写进代码、README、`.env.example` 或前端文件。
 
 ## 项目结构
 
@@ -85,7 +106,7 @@ ai-job-agent
 ├─ api
 │  └─ analyze.js          # Vercel Serverless API
 ├─ lib
-│  └─ agent.js            # OpenAI 调用、本地分析引擎、报告结构
+│  └─ agent.js            # Provider 选择、OpenAI/NVIDIA 调用、本地规则引擎
 ├─ server.js              # Node 原生本地 HTTP 服务
 ├─ package.json
 ├─ .env.example
