@@ -66,8 +66,9 @@ $env:AI_PROVIDER="nvidia"
 $env:NVIDIA_API_KEY="你的 NVIDIA API Key"
 $env:NVIDIA_BASE_URL="https://integrate.api.nvidia.com/v1"
 $env:NVIDIA_MODEL="meta/llama-3.1-70b-instruct"
-$env:NVIDIA_TIMEOUT_MS="25000"
-$env:NVIDIA_MAX_TOKENS="2048"
+$env:NVIDIA_TIMEOUT_MS="55000"
+$env:NVIDIA_MAX_TOKENS="1200"
+$env:NVIDIA_STREAM="true"
 npm run local
 ```
 
@@ -97,8 +98,9 @@ AI_PROVIDER=nvidia
 NVIDIA_API_KEY=你的 NVIDIA API Key
 NVIDIA_BASE_URL=https://integrate.api.nvidia.com/v1
 NVIDIA_MODEL=你选择的 NVIDIA 模型 ID
-NVIDIA_TIMEOUT_MS=25000
-NVIDIA_MAX_TOKENS=2048
+NVIDIA_TIMEOUT_MS=55000
+NVIDIA_MAX_TOKENS=1200
+NVIDIA_STREAM=true
 ```
 
 不要把真实 API Key 写进代码、README、`.env.example` 或前端文件。
